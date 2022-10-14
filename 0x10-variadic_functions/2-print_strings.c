@@ -3,28 +3,33 @@
 #include <stdio.h>
 
 /**
- * print_numbers - Variadic function that prints whatever argument
- * is being passed in
- * @separator: What should separate functions
+ * print_strings - Variadic function that prints strings from arguments
+ * that are passed into this function
+ * @separator: What separates the arguments being passed in
  * @n: Number of arguments being passed in
  * Return: Nothing
  */
-void print_numbers(const char *separator, const unsigned int n, ...)
+void print_strings(const char *separator, const unsigned int n, ...)
 {
 	unsigned int i;
-	int num;
-	va_list int_input;
+	char *str = NULL;
+	va_list argument_input;
 
-	va_start(int_input, n);
+	va_start(argument_input, n);
 
 	for (i = 0; i < n; i++)
 	{
-		num = va_arg(int_input, int);
-		printf("%d", num);
+		str = va_arg(argument_input, char *);
+
+		if (str == NULL)
+			printf("(nil)");
+		else
+			printf("%s", str);
 
 		if ((i != n - 1) && separator != NULL)
 			printf("%s", separator);
 	}
-	va_end(int_input);
+
 	printf("\n");
+	va_end(argument_input);
 }
